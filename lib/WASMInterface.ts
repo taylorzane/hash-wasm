@@ -1,6 +1,6 @@
 import Mutex from './mutex';
 import {
-  decodeBase64, getDigestHex, getUInt8Buffer, IDataType, writeHexToUInt8,
+  /* decodeBase64, */ getDigestHex, getUInt8Buffer, IDataType, writeHexToUInt8,
   hexStringEqualsUInt8,
 } from './util';
 
@@ -88,10 +88,9 @@ export async function WASMInterface(binary: any, hashLength: number) {
 
   const loadWASMPromise = wasmMutex.dispatch(async () => {
     if (!wasmModuleCache.has(binary.name)) {
-      const asm = decodeBase64(binary.data);
-      const promise = WebAssembly.compile(asm);
+      const m = await import(`../wasm/${binary.name}.wasm`);
 
-      wasmModuleCache.set(binary.name, promise);
+      wasmModuleCache.set(binary.name, Promise.resolve(m.default));
     }
 
     const module = await wasmModuleCache.get(binary.name);
