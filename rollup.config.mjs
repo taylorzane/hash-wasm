@@ -27,6 +27,7 @@ const LICENSE_CONFIG = {
 };
 
 const MAIN_BUNDLE_CONFIG = {
+  external: ['*.wasm'],
   input: 'lib/index.ts',
   output: [
     {
@@ -47,6 +48,7 @@ const MAIN_BUNDLE_CONFIG = {
 };
 
 const MINIFIED_MAIN_BUNDLE_CONFIG = {
+  external: ['*.wasm'],
   input: 'lib/index.ts',
   output: [
     {
@@ -68,6 +70,7 @@ const MINIFIED_MAIN_BUNDLE_CONFIG = {
 };
 
 const INDIVIDUAL_BUNDLE_CONFIG = (algorithm) => ({
+  external: ['*.wasm'],
   input: `lib/${algorithm}.ts`,
   output: [
     {

@@ -57,6 +57,12 @@ export type IHasher = {
 
 const wasmModuleCache = new Map<string, Promise<WebAssembly.Module>>();
 
+export function loadWasm(wasmFiles: {[name: string]: WebAssembly.Module}) {
+  Object.entries(wasmFiles).forEach(([name, m]) => {
+    wasmModuleCache.set(name, Promise.resolve(m));
+  });
+}
+
 export async function WASMInterface(binary: any, hashLength: number) {
   let wasmInstance = null;
   let memoryView: Uint8Array = null;
@@ -88,9 +94,7 @@ export async function WASMInterface(binary: any, hashLength: number) {
 
   const loadWASMPromise = wasmMutex.dispatch(async () => {
     if (!wasmModuleCache.has(binary.name)) {
-      const m = await import(`./wasm/${binary.name}.wasm`);
-
-      wasmModuleCache.set(binary.name, Promise.resolve(m.default));
+      throw new Error(`Please load wasm file for '${binary.name}' before attempting to use it`);
     }
 
     const module = await wasmModuleCache.get(binary.name);
