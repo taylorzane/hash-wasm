@@ -88,7 +88,7 @@ export async function WASMInterface(binary: any, hashLength: number) {
 
   const loadWASMPromise = wasmMutex.dispatch(async () => {
     if (!wasmModuleCache.has(binary.name)) {
-      const m = await import(`../wasm/${binary.name}.wasm`);
+      const m = await import(`./wasm/${binary.name}.wasm`);
 
       wasmModuleCache.set(binary.name, Promise.resolve(m.default));
     }
