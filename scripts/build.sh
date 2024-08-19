@@ -29,8 +29,8 @@ docker cp hash-wasm-temp:/app/wasm/ .
 docker rm hash-wasm-temp
 docker volume rm hash-wasm-volume
 
-# node scripts/optimize
-node scripts/make_json
+# node scripts/optimize.js
+node scripts/make_json.js
 node --max-old-space-size=4096 ./node_modules/rollup/dist/bin/rollup -c
 npx tsc ./lib/index --outDir ./dist --downlevelIteration --emitDeclarationOnly --declaration --resolveJsonModule --allowSyntheticDefaultImports
 

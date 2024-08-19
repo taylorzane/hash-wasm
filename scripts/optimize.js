@@ -1,5 +1,6 @@
-const fs = require('fs');
-const binaryen = require('binaryen');
+import fs from 'fs';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import binaryen from 'binaryen';
 
 console.log('binaryen optimize start');
 
